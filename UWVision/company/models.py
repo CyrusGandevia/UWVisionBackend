@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Company(models.Model):
+    class Meta:
+        verbose_name_plural = 'Companies'
+
     name = models.CharField(max_length=255)
     description = models.TextField()
     industry = models.CharField(max_length=255)

@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework', # Django REST Framework
-    'company'
+    'company',
+    'job',
+    'salary',
+    'review',
+    'interview_question'
 ]
 
 MIDDLEWARE = [

@@ -2,7 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Company
-from .serializers import CompanySerializer 
+from .serializers import CompanySerializer
+from django.core import serializers
 
 @api_view(['GET'])
 def get_all_companies(request):

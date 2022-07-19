@@ -1,0 +1,45 @@
+from django.db import models
+from django.contrib.auth.models import User
+from job.models import Job 
+
+import datetime
+
+# Defining constants
+YEAR_CHOICES = []
+for year in range(2015, (datetime.datetime.now().year+1)):
+    YEAR_CHOICES.append((year, year))
+
+TERM_CHOICES = [
+    ('Fall', 'Fall'),
+    ('Spring', 'Spring'),
+    ('Winter', 'Winter')
+]
+
+COOP_NUMBER_CHOICES = [
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+]
+
+# Create your models here.
+#TODO: Make sure decimal fields are non-negative
+class Salary(models.Model):
+    class Meta:
+        verbose_name_plural = 'Salaries'
+
+    job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
+    hourly_wage = models.DecimalField(max_digits=5, decimal_places=2) # Max is 999.99
+    monthly_relocation_stipend = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True) # Max is 99,999.99
+    monthly_misc_stipends = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True) # Max is 9,999.99
+    term_signing_bonus = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True) # Max is 99,999.99
+    city = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    year_worked = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
+    term_worked = models.CharField(max_length=6, choices=TERM_CHOICES)
+    coop_term_number = models.IntegerField(choices=COOP_NUMBER_CHOICES)
+    program = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    added_by = models.ForeignKey(User, on_delete = models.CASCADE)

@@ -3,7 +3,8 @@ from .models import Company
 
 # Register your models here.
 class CompanyAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-    list_display = [field.name for field in Company._meta.get_fields()]
-
+    search_fields = ['name', 'description', 'industry']
+    list_display = ['id', 'name', 'description', 'industry', 'created_at', 'added_by']
+    list_filter = ['industry']
+    
 admin.site.register(Company, CompanyAdmin)
