@@ -34,8 +34,8 @@ RATING_CHOICES = [
 
 # Create your models here.
 class Review(models.Model):
-    job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
-    body = models.TextField()
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    body = models.TextField(blank=True, null=True)   # TODO: Make this field optional
     work_life_balance = models.IntegerField(choices=RATING_CHOICES)
     culture = models.IntegerField(choices=RATING_CHOICES)
     interesting_work = models.IntegerField(choices=RATING_CHOICES)
@@ -48,8 +48,8 @@ class Review(models.Model):
     added_by = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
-        return self.job_id.__str__() + ' | ' + self.added_by.username
+        return str(self.job) + ' | ' + self.added_by.username
 
 class UpvotedReview(models.Model):
-    review_id = models.ForeignKey(Review, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

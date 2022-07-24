@@ -3,10 +3,10 @@ from .models import Review, UpvotedReview
 
 # Register your models here.
 class ReviewAdmin(admin.ModelAdmin):
-    search_fields = ['job_id', 'body', 'program']
+    search_fields = ['job', 'body', 'program']
     list_display = [
         'id',
-        'job_id',
+        'job',
         'body',
         'work_life_balance',
         'culture',
@@ -22,7 +22,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_filter = ['year_worked', 'term_worked', 'coop_term_number', 'program']
 
 class UpvotedReviewAdmin(admin.ModelAdmin):
-    list_display = ['id', 'review_id', 'user_id']
+    list_display = ['id', 'review', 'user']
 
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(UpvotedReview, UpvotedReviewAdmin)

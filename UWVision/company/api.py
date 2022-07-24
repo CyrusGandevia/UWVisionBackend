@@ -7,7 +7,7 @@ from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
 
 @api_view(['GET'])
-def get_searchbar_data(request):
+def get_companies(request):
     # 1) Fetches all companies
     # 2) Joins with all jobs 
     # 3) Groups by company name and aggregates number of jobs per company
@@ -17,18 +17,18 @@ def get_searchbar_data(request):
 
 # TODO: Serialize data? Prevent SQL injection..?
 @api_view(['GET'])
-def get_company_data(request, **kwargs):
-    company_id = kwargs.get('company_id', None)
-
-    if not company_id:
-        return Response({'error': 'No company id passed!'}, status=status.HTTP_400_BAD_REQUEST)
+def get_company(request, **kwargs):
+    company_name = kwargs.get('company_name', None)
+    if not company_name:
+        return Response({'error': 'No company name passed!'}, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        company = Company.objects.values().get(id=company_id)
+        company = Company.objects.values().get(name=company_name)
         return Response(data=company, status=status.HTTP_200_OK)
     except ObjectDoesNotExist:
-        return Response({'error': 'Company with id=' + str(company_id) + ' does not exist.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Company with name=' + company_name + ' does not exist.'}, status=status.HTTP_404_NOT_FOUND)
 
+# TODO: Requires user to be logged in
 @api_view(['POST'])
 def create_company(request):
     data = {

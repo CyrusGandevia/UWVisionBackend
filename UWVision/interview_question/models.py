@@ -26,7 +26,7 @@ COOP_NUMBER_CHOICES = [
 
 # Create your models here.
 class InterviewQuestion(models.Model):
-    job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
     body = models.TextField()
     year_worked = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
     term_worked = models.CharField(max_length=6, choices=TERM_CHOICES)
@@ -36,8 +36,8 @@ class InterviewQuestion(models.Model):
     added_by = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
-        return self.job_id.__str__() + ' | ' + self.added_by.username
+        return str(self.job) + ' | ' + self.added_by.username
 
 class UpvotedInterviewQuestion(models.Model):
-    interview_question_id = models.ForeignKey(InterviewQuestion, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    interview_question = models.ForeignKey(InterviewQuestion, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -3,10 +3,10 @@ from .models import Salary
 
 # Register your models here.
 class SalaryAdmin(admin.ModelAdmin):
-    search_fields = ['job_id', 'city', 'country', 'program']
+    search_fields = ['job', 'city', 'country', 'program']
     list_display = [
         'id',
-        'job_id',
+        'job',
         'hourly_wage',
         'monthly_relocation_stipend',
         'monthly_misc_stipends',

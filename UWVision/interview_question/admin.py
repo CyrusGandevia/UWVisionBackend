@@ -3,10 +3,10 @@ from .models import InterviewQuestion, UpvotedInterviewQuestion
 
 # Register your models here.
 class InterviewQuestionAdmin(admin.ModelAdmin):
-    search_fields = ['job_id', 'body', 'program']
+    search_fields = ['job', 'body', 'program']
     list_display = [
         'id',
-        'job_id',
+        'job',
         'body',
         'year_worked',
         'term_worked',
@@ -18,7 +18,7 @@ class InterviewQuestionAdmin(admin.ModelAdmin):
     list_filter = ['year_worked', 'term_worked', 'coop_term_number', 'program']
 
 class UpvotedInterviewQuestionAdmin(admin.ModelAdmin):
-    list_display = ['id', 'interview_question_id', 'user_id']
+    list_display = ['id', 'interview_question', 'user']
 
 admin.site.register(InterviewQuestion, InterviewQuestionAdmin)
 admin.site.register(UpvotedInterviewQuestion, UpvotedInterviewQuestionAdmin)

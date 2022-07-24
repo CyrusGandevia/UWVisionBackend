@@ -30,7 +30,7 @@ class Salary(models.Model):
     class Meta:
         verbose_name_plural = 'Salaries'
 
-    job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
     hourly_wage = models.DecimalField(max_digits=5, decimal_places=2) # Max is 999.99
     monthly_relocation_stipend = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True) # Max is 99,999.99
     monthly_misc_stipends = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True) # Max is 9,999.99

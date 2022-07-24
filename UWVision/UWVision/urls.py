@@ -16,9 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from company import urls as company_urls
+from job import urls as job_urls
+from salary import urls as salary_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('company/', include(company_urls)),
+    path('api/', include(company_urls)),
+    path('api/', include(job_urls)),
+    path('api/', include(salary_urls))
 ]

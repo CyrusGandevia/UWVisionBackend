@@ -1,11 +1,11 @@
 from django.urls import path
-from .api import get_searchbar_data, get_company_data, create_company
+from .api import get_companies, get_company, create_company
 
 urlpatterns = [
     # GET requests:
-    path('get/searchbar_data', get_searchbar_data),
-    path('get/company/<int:company_id>', get_company_data),
+    path('get/company/all', get_companies),
+    path('get/company/<slug:company_name>', get_company),
 
     # POST requests:
-    path('create/company', create_company)
+    path('post/company', create_company)
 ]
