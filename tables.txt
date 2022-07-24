@@ -1,0 +1,87 @@
+User: (TODO - figure out password stuff)
+- id 
+- username
+- first_name
+- last_name
+- email
+- profile_pic (link to S3)
+- is_admin (bool: True/False)
+
+Company:
+- id
+- name
+- description
+- industry (enum: Software, Hardware, etc...)
+- logo (link to S3)
+- created_at
+- added_by
+
+Job:
+- id
+- company_id  [**foreign key] 
+- job_name
+- created_at
+- added_by
+
+Saved_Jobs:
+- user_id [**foreign key] 
+- job_id [**foreign key] 
+
+Salary:
+- id
+- job_id [**foreign key] 
+- wage (hourly)
+- relocation_stipend (monthly)
+- misc_stipends (monthly)
+- signing_bonus (for the term)
+- year_worked (Ex. 2022)
+- term_worked (Ex. Spring)
+- coop_term_number (ex. 1st, 2nd, etc...)
+- program (ex. Computer Science, SYDE, etc...)
+- created_at
+- added_by
+
+Review:
+- id
+- job_id [**foreign key]
+- body
+- work_life_balance (1-5)
+- culture (1-5) 
+- interesting_work (1-5)
+- overall_rating (1-5)
+- year_worked (Ex. 2022)
+- term_worked (Ex. Spring)
+- coop_term_number (ex. 1st, 2nd, etc...)
+- program (ex. Computer Science, SYDE, etc...)
+- created_at
+- added_by
+
+Upvoted_Reviews:
+- review_id [**foreign key] 
+- user_id [**foreign key] 
+
+Interview_Question
+- id
+- job_id  [**foreign key]
+- body 
+- year_interviewed (Ex. 2022)
+- term_interviewed (Ex. Spring)
+- coop_term_number (ex. 1st, 2nd, etc...)
+- program (ex. Computer Science, SYDE, etc...)
+- created_at
+- added_by
+
+Upvoted_Interview_Questions:
+- interview_question_id [**foreign key] 
+- user_id [**foreign key] 
+
+
+# WE SHOULD ADD INDEXES
+
+
+
+____
+Users:
+
+user2
+abcd_1234

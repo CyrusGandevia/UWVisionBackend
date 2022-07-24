@@ -1,0 +1,60 @@
+old model:
+==========
+
+companies:
+[X] 1) /companydata -> gets all the companies
+[X] 2) /addcompany -> creates company
+[X] 3) /getcompanydata/:companyname -> gets data for each job in a company
+[ ] 4) /:companyname/addjob -> adds job to company 
+[X] 5) /company/:companyname -> fetches info for specific company
+
+
+jobs:
+[ ] 6) /:company_name/:job/:question -> post interview question
+[ ] 7) /:company_name/:job/question/:question -> upvote/downvote interview question
+[ ] 8) /:company_name/:job/questions -> get all interview questions for a job
+[ ] 9) /:company_name/:job/salary -> add salary for a job
+[X] 10) /:company_name/:job/salaries -> get all salaries for a job
+[ ] 11) /:company_name/:job/review -> add review for a job
+[ ] 12) /:company_name/:job/review/:review -> upvote/downvote review
+[ ] 13) /:company_name/:job/reviews -> get all reviews for a job + (average ratings)
+[ ] 14) /:company_name/:job/save -> save/unsave job
+[X] 15) /savedjobs -> view saved jobs
+
+
+users:
+(final stage)
+
+
+
+
+_________________________
+
+new model:
+==========
+
+company:
+1) /get/company/all -> gets all companies (and their number of jobs)
+2) /post/company -> creates company
+5) /get/company/:company_name -> fetches info for specific company
+
+job:
+3) /get/company/:company_name/job/all -> gets all jobs (and associated metrics) for the company
+4) TODO: Add job
+5) TODO: Save/unsave job
+15) /get/job/saved/all -> view saved jobs
+
+salary:
+9) TODO: Add a salary for a job
+10) /get/job/:job_id/salary/all -> Get all salaries for a job
+
+review:
+11) TODO: Add review for a job
+12) TODO: Upvote/downvote review
+13) TODO: Get all reviews for a job (+ the average rating metrics for the overview section)
+
+interview_question:
+6) TODO: Create interview question
+7) TODO: Upvote/downvote interview question
+8) TODO: Get all interview questions for a job
+
