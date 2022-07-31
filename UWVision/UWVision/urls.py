@@ -15,14 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
 from company import urls as company_urls
 from job import urls as job_urls
 from salary import urls as salary_urls
+from review import urls as review_urls
+from interview_question import urls as interview_question_urls
+from user import urls as user_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(company_urls)),
     path('api/', include(job_urls)),
-    path('api/', include(salary_urls))
+    path('api/', include(salary_urls)),
+    path('api/', include(review_urls)),
+    path('api/', include(interview_question_urls)),
+    path('api/', include(user_urls))
 ]

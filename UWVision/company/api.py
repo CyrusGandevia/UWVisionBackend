@@ -1,4 +1,4 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Company
@@ -7,6 +7,7 @@ from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
 
 @api_view(['GET'])
+@permission_classes([]) # Required to override default requirement of authentication credentials
 def get_companies(request):
     # 1) Fetches all companies
     # 2) Joins with all jobs 
@@ -15,8 +16,8 @@ def get_companies(request):
     companies = Company.objects.values('name', 'id').annotate(job_count=Count('job__name')).order_by('name')
     return Response(data=list(companies), status=status.HTTP_200_OK)
 
-# TODO: Serialize data? Prevent SQL injection..?
 @api_view(['GET'])
+@permission_classes([]) # Required to override default requirement of authentication credentials
 def get_company(request, **kwargs):
     company_name = kwargs.get('company_name', None)
     if not company_name:
@@ -28,7 +29,6 @@ def get_company(request, **kwargs):
     except ObjectDoesNotExist:
         return Response({'error': 'Company with name=' + company_name + ' does not exist.'}, status=status.HTTP_404_NOT_FOUND)
 
-# TODO: Requires user to be logged in
 @api_view(['POST'])
 def create_company(request):
     data = {
@@ -44,3 +44,4 @@ def create_company(request):
     
     serializer.save()
     return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
