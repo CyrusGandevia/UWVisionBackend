@@ -2,9 +2,15 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Review, UpvotedReview
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, Func
 from .serializers import ReviewSerializer, UpvotedReviewSerializer
 from django.core.exceptions import ObjectDoesNotExist
+
+# Necessary for rounding to two decimal places for the Avg() functions
+class Round(Func):
+    function = "ROUND"
+    template = "%(function)s(%(expressions)s::numeric, 2)"
+
 
 @api_view(['GET'])
 @permission_classes([]) # Required to override default requirement of authentication credentials
@@ -35,10 +41,10 @@ def get_all_reviews_for_job(request, **kwargs): # Works very similar to 'get_all
     # Get overall rating for the job as well
     overall_review_rating = (
         reviews
-        .aggregate(avg_work_life_balance_rating=Avg('work_life_balance'),
-                   avg_culture_rating=Avg('culture'), 
-                   avg_interesting_work_rating=Avg('interesting_work'),
-                   avg_overall_rating=Avg('overall_rating'))
+        .aggregate(avg_work_life_balance_rating=Round(Avg('work_life_balance')),
+                   avg_culture_rating=Round(Avg('culture')), 
+                   avg_interesting_work_rating=Round(Avg('interesting_work')),
+                   avg_overall_rating=Round(Avg('overall_rating')))
     )
 
     return Response(data={'overall_ratings': overall_review_rating, 'reviews': reviews}, status=status.HTTP_200_OK)

@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework', # Django REST Framework
-    'rest_framework.authtoken',
+    'rest_framework.authtoken', # For Token-based auth
+    'corsheaders', # Allows for HTTPS requests from frontend server
     'user',
     'company',
     'job',
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 AUTH_USER_MODEL = "user.User"
@@ -66,6 +68,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    # TODO: Add production server here too
+)
 
 ROOT_URLCONF = 'UWVision.urls'
 

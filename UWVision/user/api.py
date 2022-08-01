@@ -1,5 +1,5 @@
 from os import stat
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
@@ -8,6 +8,8 @@ from rest_framework.authtoken.models import Token
 
 # Create User (sign up)
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
 def create_user(request):
     user = User.objects.create_user(
         request.data.get('username'),
@@ -26,6 +28,8 @@ def create_user(request):
 
 # Log In -> returns credentials + token
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
 def get_user(request):
     user = authenticate(
         username=request.data.get('username'),

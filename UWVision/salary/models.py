@@ -35,11 +35,11 @@ class Salary(models.Model):
     monthly_relocation_stipend = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True) # Max is 99,999.99
     monthly_misc_stipends = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True) # Max is 9,999.99
     term_signing_bonus = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True) # Max is 99,999.99
-    city = models.CharField(max_length=255)
-    country = models.CharField(max_length=255)
-    year_worked = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
-    term_worked = models.CharField(max_length=6, choices=TERM_CHOICES)
-    coop_term_number = models.IntegerField(choices=COOP_NUMBER_CHOICES)
-    program = models.CharField(max_length=255)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
+    year_worked = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year, blank=True, null=True)
+    term_worked = models.CharField(max_length=6, choices=TERM_CHOICES, blank=True, null=True)
+    coop_term_number = models.IntegerField(choices=COOP_NUMBER_CHOICES, blank=True, null=True)
+    program = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     added_by = models.ForeignKey(User, on_delete = models.CASCADE)

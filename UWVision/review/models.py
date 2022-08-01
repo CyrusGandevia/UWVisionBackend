@@ -35,20 +35,20 @@ RATING_CHOICES = [
 # Create your models here.
 class Review(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    body = models.TextField(blank=True, null=True)   # TODO: Make this field optional
+    body = models.TextField(blank=True, null=True)
     work_life_balance = models.IntegerField(choices=RATING_CHOICES)
     culture = models.IntegerField(choices=RATING_CHOICES)
     interesting_work = models.IntegerField(choices=RATING_CHOICES)
     overall_rating = models.IntegerField(choices=RATING_CHOICES)
     year_worked = models.IntegerField(choices=YEAR_CHOICES, default=datetime.datetime.now().year)
     term_worked = models.CharField(max_length=6, choices=TERM_CHOICES)
-    coop_term_number = models.IntegerField(choices=COOP_NUMBER_CHOICES)
-    program = models.CharField(max_length=255)
+    coop_term_number = models.IntegerField(choices=COOP_NUMBER_CHOICES, blank=True, null=True) # Optional fields
+    program = models.CharField(max_length=255, blank=True, null=True) # Optional fields
     created_at = models.DateTimeField(auto_now_add=True)
     added_by = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
-        return str(self.job) + ' | ' + self.added_by.username
+        return str(self.job) + ' | ' + self.added_by.username + ' | ' + str(self.id)
 
 class UpvotedReview(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)

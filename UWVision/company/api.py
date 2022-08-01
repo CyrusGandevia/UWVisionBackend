@@ -1,3 +1,4 @@
+from datetime import date
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
@@ -22,6 +23,9 @@ def get_company(request, **kwargs):
     company_name = kwargs.get('company_name', None)
     if not company_name:
         return Response({'error': 'No company name passed!'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Replace truncated name (that would have spaces, ex: Jane-Street => Jane Street)
+    company_name = company_name.replace("-", " ");
 
     try:
         company = Company.objects.values().get(name=company_name)

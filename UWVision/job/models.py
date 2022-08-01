@@ -11,6 +11,9 @@ class Job(models.Model):
 
     def __str__(self):
         return str(self.company) + " | " + self.name
+    
+    class Meta:
+        unique_together = ['company', 'name']
 
 class SavedJob(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
