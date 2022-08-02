@@ -70,7 +70,7 @@ REST_FRAMEWORK = {
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
-    "uwvision-backend.com",
+    "UWVision-test.us-east-1.elasticbeanstalk.com",
 ]
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
