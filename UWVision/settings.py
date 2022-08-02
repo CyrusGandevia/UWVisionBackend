@@ -117,7 +117,8 @@ else:
             'NAME': 'cyrusgandevia',
             'USER': 'cyrusgandevia',
             'PASSWORD': '',
-            'HOST': 'localhost'
+            'HOST': 'localhost',
+            'PORT': '5432',
         }
     }
 
