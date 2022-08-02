@@ -1,0 +1,107 @@
+Retrieving logs...
+============= i-0432f5f0d29b48661 ==============
+----------------------------------------
+/var/log/eb-engine.log
+----------------------------------------
+2022/08/02 00:34:40.597142 [INFO] Executing instruction: GetSetupLogRotate
+2022/08/02 00:34:40.597152 [INFO] Initialize LogRotate files and directories
+2022/08/02 00:34:40.696632 [INFO] Instance has NOT been bootstrapped
+2022/08/02 00:34:40.696658 [INFO] Executing instruction: BootstrapCFNHup
+2022/08/02 00:34:40.696663 [INFO] Bootstrap cfn-hup
+2022/08/02 00:34:40.708384 [INFO] Copying file /opt/elasticbeanstalk/config/private/aws-eb-command-handler.conf to /etc/cfn/hooks.d/aws-eb-command-handler.conf
+2022/08/02 00:34:40.720005 [INFO] Executing instruction: StartCFNHup
+2022/08/02 00:34:40.720018 [INFO] Start cfn-hup
+2022/08/02 00:34:40.720037 [INFO] Running command /bin/sh -c systemctl is-active cfn-hup.service
+2022/08/02 00:34:40.729881 [INFO] Running command /bin/sh -c systemctl is-active cfn-hup.service
+2022/08/02 00:34:40.739422 [INFO] Running command /bin/sh -c systemctl show -p PartOf cfn-hup.service
+2022/08/02 00:34:40.805058 [INFO] Running command /bin/sh -c systemctl daemon-reload
+2022/08/02 00:34:40.956641 [INFO] Running command /bin/sh -c systemctl reset-failed
+2022/08/02 00:34:40.966833 [INFO] Running command /bin/sh -c systemctl is-enabled aws-eb.target
+2022/08/02 00:34:40.979313 [INFO] Running command /bin/sh -c systemctl enable aws-eb.target
+2022/08/02 00:34:41.133345 [INFO] Running command /bin/sh -c systemctl start aws-eb.target
+2022/08/02 00:34:41.138232 [INFO] Running command /bin/sh -c systemctl enable cfn-hup.service
+2022/08/02 00:34:41.287233 [INFO] Created symlink from /etc/systemd/system/multi-user.target.wants/cfn-hup.service to /etc/systemd/system/cfn-hup.service.
+
+2022/08/02 00:34:41.287263 [INFO] Running command /bin/sh -c systemctl show -p PartOf cfn-hup.service
+2022/08/02 00:34:41.298745 [INFO] Running command /bin/sh -c systemctl is-active cfn-hup.service
+2022/08/02 00:34:41.310018 [INFO] Running command /bin/sh -c systemctl start cfn-hup.service
+2022/08/02 00:34:41.380631 [INFO] Instance has NOT been bootstrapped
+2022/08/02 00:34:41.380645 [INFO] Executing instruction: SetupPublishLogCronjob
+2022/08/02 00:34:41.380650 [INFO] Setup publish logs cron job...
+2022/08/02 00:34:41.380654 [INFO] Copying file /opt/elasticbeanstalk/config/private/logtasks/cron/publishlogs to /etc/cron.d/publishlogs
+2022/08/02 00:34:41.382672 [INFO] Instance has NOT been bootstrapped
+2022/08/02 00:34:41.382682 [INFO] Executing instruction: MarkBootstrapped
+2022/08/02 00:34:41.382686 [INFO] Starting MarkBootstrapped
+2022/08/02 00:34:41.382692 [INFO] Instance has NOT been bootstrapped
+2022/08/02 00:34:41.382739 [INFO] Marked instance as Bootstrapped
+2022/08/02 00:34:41.382745 [INFO] Executing instruction: Save CFN Stack Info
+2022/08/02 00:34:41.382781 [INFO] Starting SwitchCFNStack
+2022/08/02 00:34:41.382787 [INFO] Executing cleanup logic
+2022/08/02 00:34:41.382798 [INFO] Platform Engine finished execution on command: env-launch
+
+2022/08/02 00:36:11.769103 [INFO] Starting...
+2022/08/02 00:36:11.769148 [INFO] Starting EBPlatform-PlatformEngine
+2022/08/02 00:36:11.769168 [INFO] reading event message file
+2022/08/02 00:36:11.769337 [INFO] Engine received EB command cfn-hup-exec
+
+2022/08/02 00:36:11.871354 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:442670177631:stack/awseb-e-tziqj27v9e-stack/a99e1840-11fa-11ed-b9a4-1254e216e535 -r AWSEBAutoScalingGroup --region us-east-1
+2022/08/02 00:36:12.181587 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:442670177631:stack/awseb-e-tziqj27v9e-stack/a99e1840-11fa-11ed-b9a4-1254e216e535 -r AWSEBBeanstalkMetadata --region us-east-1
+2022/08/02 00:36:12.477783 [INFO] checking whether command app-deploy is applicable to this instance...
+2022/08/02 00:36:12.477796 [INFO] this command is applicable to the instance, thus instance should execute command
+2022/08/02 00:36:12.477800 [INFO] Engine command: (app-deploy)
+
+2022/08/02 00:36:12.477806 [INFO] Downloading EB Application...
+2022/08/02 00:36:12.477810 [INFO] Region: us-east-1
+2022/08/02 00:36:12.477814 [INFO] envID: e-tziqj27v9e
+2022/08/02 00:36:12.477818 [INFO] envBucket: elasticbeanstalk-us-east-1-442670177631
+2022/08/02 00:36:12.477821 [INFO] Using manifest file name from command request
+2022/08/02 00:36:12.477829 [INFO] Unable to get version manifest file.
+2022/08/02 00:36:12.477837 [INFO] Downloading latest manifest available.
+2022/08/02 00:36:12.477841 [INFO] Download latest app version manifest
+2022/08/02 00:36:12.477918 [INFO] resources/environments/e-tziqj27v9e/_runtime/versions/manifest
+2022/08/02 00:36:12.522407 [INFO] latestManifest key *: resources/environments/e-tziqj27v9e/_runtime/versions/manifest_1659400379664
+
+2022/08/02 00:36:12.522602 [INFO] Downloading: bucket: elasticbeanstalk-us-east-1-442670177631, object: /resources/environments/e-tziqj27v9e/_runtime/versions/manifest_1659400379664
+2022/08/02 00:36:12.539782 [INFO] Download successful151bytes downloaded
+2022/08/02 00:36:12.539875 [INFO] Trying to read and parse version manifest...
+2022/08/02 00:36:12.539959 [INFO] Downloading: bucket: elasticbeanstalk-us-east-1-442670177631, object: /resources/environments/e-tziqj27v9e/_runtime/_versions/UWVision/app-fb70-220801_203239978082
+2022/08/02 00:36:12.955196 [INFO] Download successful15864388bytes downloaded
+2022/08/02 00:36:12.955495 [INFO] Executing instruction: ElectLeader
+2022/08/02 00:36:12.955504 [INFO] Running leader election for instance i-0432f5f0d29b48661...
+2022/08/02 00:36:12.955509 [INFO] Calling the cfn-elect-cmd-leader to elect the command leader.
+2022/08/02 00:36:12.955551 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-elect-cmd-leader --stack arn:aws:cloudformation:us-east-1:442670177631:stack/awseb-e-tziqj27v9e-stack/a99e1840-11fa-11ed-b9a4-1254e216e535 --command-name ElasticBeanstalkCommand-AWSEBAutoScalingGroup --invocation-id 0b71123d-ee0a-4b0f-b784-9b6c050a9229 --listener-id i-0432f5f0d29b48661 --region us-east-1
+2022/08/02 00:36:13.260618 [INFO] Instance is Leader.
+2022/08/02 00:36:13.260673 [INFO] Executing instruction: stopSqsd
+2022/08/02 00:36:13.260680 [INFO] This is a web server environment instance, skip stop sqsd daemon ...
+2022/08/02 00:36:13.260684 [INFO] Executing instruction: PreBuildEbExtension
+2022/08/02 00:36:13.260689 [INFO] Starting executing the config set Infra-EmbeddedPreBuild.
+2022/08/02 00:36:13.260706 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-init -s arn:aws:cloudformation:us-east-1:442670177631:stack/awseb-e-tziqj27v9e-stack/a99e1840-11fa-11ed-b9a4-1254e216e535 -r AWSEBAutoScalingGroup --region us-east-1 --configsets Infra-EmbeddedPreBuild
+2022/08/02 00:36:13.579366 [INFO] Finished executing the config set Infra-EmbeddedPreBuild.
+
+2022/08/02 00:36:13.579401 [INFO] Executing instruction: StageApplication
+2022/08/02 00:36:13.580750 [INFO] extracting /opt/elasticbeanstalk/deployment/app_source_bundle to /var/app/staging/
+2022/08/02 00:36:13.580767 [INFO] Running command /bin/sh -c /usr/bin/unzip -q -o /opt/elasticbeanstalk/deployment/app_source_bundle -d /var/app/staging/
+2022/08/02 00:36:14.386890 [INFO] finished extracting /opt/elasticbeanstalk/deployment/app_source_bundle to /var/app/staging/ successfully
+2022/08/02 00:36:14.388507 [ERROR] An error occurred during execution of command [app-deploy] - [StageApplication]. Stop running the command. Error: chown /var/app/staging/django_env/bin/python: no such file or directory 
+
+2022/08/02 00:36:14.388516 [INFO] Executing cleanup logic
+2022/08/02 00:36:14.388647 [INFO] CommandService Response: {"status":"FAILURE","api_version":"1.0","results":[{"status":"FAILURE","msg":"Engine execution has encountered an error.","returncode":1,"events":[{"msg":"Instance deployment failed. For details, see 'eb-engine.log'.","timestamp":1659400574388,"severity":"ERROR"}]}]}
+
+2022/08/02 00:36:14.388952 [INFO] Platform Engine finished execution on command: app-deploy
+
+2022/08/02 00:37:50.746423 [INFO] Starting...
+2022/08/02 00:37:50.746470 [INFO] Starting EBPlatform-PlatformEngine
+2022/08/02 00:37:50.746491 [INFO] reading event message file
+2022/08/02 00:37:50.746637 [INFO] Engine received EB command cfn-hup-exec
+
+2022/08/02 00:37:50.853441 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:442670177631:stack/awseb-e-tziqj27v9e-stack/a99e1840-11fa-11ed-b9a4-1254e216e535 -r AWSEBAutoScalingGroup --region us-east-1
+2022/08/02 00:37:51.167007 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:us-east-1:442670177631:stack/awseb-e-tziqj27v9e-stack/a99e1840-11fa-11ed-b9a4-1254e216e535 -r AWSEBBeanstalkMetadata --region us-east-1
+2022/08/02 00:37:51.467508 [INFO] checking whether command tail-log is applicable to this instance...
+2022/08/02 00:37:51.467521 [INFO] this command is applicable to the instance, thus instance should execute command
+2022/08/02 00:37:51.467525 [INFO] Engine command: (tail-log)
+
+2022/08/02 00:37:51.467572 [INFO] Executing instruction: GetTailLogs
+2022/08/02 00:37:51.467577 [INFO] Tail Logs...
+2022/08/02 00:37:51.467831 [INFO] Running command /bin/sh -c tail -n 100 /var/log/eb-engine.log
+
+
