@@ -76,7 +76,8 @@ ALLOWED_HOSTS = [
 ]
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
-    'https://www.uwvision.com'
+    'https://www.uwvision.com',
+    'https://uwvision.com',
 )
 
 ROOT_URLCONF = 'UWVision.urls'
