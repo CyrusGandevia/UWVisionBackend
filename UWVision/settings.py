@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-v_-6gliqst5ir*y@rgzb1(brqs-5yly@n1q@owi7e*u0cq%vjp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 # Application definition
@@ -71,7 +71,6 @@ REST_FRAMEWORK = {
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "uwvision-test.us-east-1.elasticbeanstalk.com",
-    'https://www.uwvision.com'
 ]
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
