@@ -70,12 +70,12 @@ REST_FRAMEWORK = {
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
-    "uwvision-test.us-east-1.elasticbeanstalk.com"
+    "uwvision-test.us-east-1.elasticbeanstalk.com",
+    'https://www.uwvision.com'
 ]
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'https://www.uwvision.com'
-    # TODO: Add production server here too
 )
 
 ROOT_URLCONF = 'UWVision.urls'
