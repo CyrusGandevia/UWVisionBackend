@@ -67,6 +67,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+
+ALLOWED_HOSTS = ["uwvision-test.us-east-1.elasticbeanstalk.com"]
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     # TODO: Add production server here too
