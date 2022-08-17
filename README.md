@@ -20,5 +20,5 @@
 - Install requirements `python -m pip install -r requirements.txt`
   - NOTE: You may get that "Building wheel for backports.zoneinfo (PEP 517) ... error" - that's okay for now
 - Ensure that your Potgres App server is on
-- Run `python manage.py makemigrations` and then `python manage.py migrate` to get your database initialized
+- Run `python manage.py migrate` to get your database initialized
 - Run `python manage.py runserver` to get started with the server
