@@ -23,9 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-v_-6gliqst5ir*y@rgzb1(brqs-5yly@n1q@owi7e*u0cq%vjp'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
 
 # Application definition
 
@@ -106,6 +103,8 @@ WSGI_APPLICATION = 'UWVision.wsgi.application'
 
 
 if 'RDS_DB_NAME' in os.environ:
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = False
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -117,11 +116,13 @@ if 'RDS_DB_NAME' in os.environ:
         }
     }
 else:
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'cyrusgandevia',
-            'USER': 'cyrusgandevia',
+            'NAME': 'postgres',
+            'USER': 'postgres',
             'PASSWORD': '',
             'HOST': 'localhost',
             'PORT': '5432',
