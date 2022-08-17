@@ -21,4 +21,11 @@
   - NOTE: You may get that "Building wheel for backports.zoneinfo (PEP 517) ... error" - that's okay for now
 - Ensure that your Potgres App server is on
 - Run `python manage.py migrate` to get your database initialized
+- Create a superuser for yourself: `python manage.py createsuperuser`
 - Run `python manage.py runserver` to get started with the server
+
+### Running it after the initial setup
+- Activate your virtual environment: `source django_env/bin/activate`
+  - On the left of your terminal prompt, you will see the environment activated `(django_env) ...`
+- Use any of the regular Django commands after (ex: `python manage.py runserver`)
+
