@@ -27,5 +27,6 @@
 ### Running it after the initial setup
 - Activate your virtual environment: `source django_env/bin/activate`
   - On the left of your terminal prompt, you will see the environment activated `(django_env) ...`
+- Make sure your Postgres server is running (hit start in the app to do so)
 - Use any of the regular Django commands after (ex: `python manage.py runserver`)
 
