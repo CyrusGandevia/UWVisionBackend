@@ -1,4 +1,5 @@
 # UWVisionBackend
+Backend Admin Panel: https://uwvision-backend.com/admin | Main Site: https://uwvision.com
 
 ## Overview
 This is a scalable Django service intended to handle variable amounts of traffic and deal with a continuously growing user base. The server itself is hosted on AWS EC2, the Postgres DBs are hosted on AWS RDS, and the static file storage is supported through AWS S3. 
