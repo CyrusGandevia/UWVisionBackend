@@ -18,7 +18,7 @@
 ### First-time setup
 - Activate virtual environment: `source django_env/bin/activate`
 - Install requirements `python -m pip install -r requirements.txt`
-  - NOTE: You may get that "Building wheel for backports.zoneinfo (PEP 517) ... error" - that's okay for now
+  - NOTE: You may get `Building wheel for backports.zoneinfo (PEP 517) ... error` - that's okay for now
 - Ensure that your Potgres App server is on
 - Run `python manage.py migrate` to get your database initialized
 - Create a superuser for yourself: `python manage.py createsuperuser`
