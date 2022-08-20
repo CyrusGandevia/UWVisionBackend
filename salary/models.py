@@ -24,8 +24,8 @@ COOP_NUMBER_CHOICES = [
     (6, 6),
 ]
 
-# Create your models here.
 #TODO: Make sure decimal fields are non-negative
+# Some fields currently are marked as optional (when blank and null are True) because these features are still pending implementation on frontend
 class Salary(models.Model):
     class Meta:
         verbose_name_plural = 'Salaries'

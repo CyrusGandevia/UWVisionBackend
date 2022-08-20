@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Salary
 
-# Register your models here.
 class SalaryAdmin(admin.ModelAdmin):
     search_fields = ['job', 'city', 'country', 'program']
     list_display = [
