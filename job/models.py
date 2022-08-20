@@ -2,7 +2,7 @@ from django.db import models
 from user.models import User
 from company.models import Company
 
-# Create your models here.
+# Some fields currently are marked as optional (when blank and null are True) because these features are still pending implementation on frontend
 class Job(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
