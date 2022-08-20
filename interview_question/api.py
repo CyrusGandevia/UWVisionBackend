@@ -2,14 +2,16 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import InterviewQuestion, UpvotedInterviewQuestion
 from django.db.models import Count
-from .serializers import InterviewQuestionSerializer, UpvotedInterviewQuestionSerializer
 from django.core.exceptions import ObjectDoesNotExist
 
+from .models import InterviewQuestion, UpvotedInterviewQuestion
+from .serializers import InterviewQuestionSerializer, UpvotedInterviewQuestionSerializer
+
 @api_view(['GET'])
-@permission_classes([]) # Required to override default requirement of authentication credentials
+@permission_classes([])
 def get_all_interview_questions_for_job(request, **kwargs):
+    # If job name is not passed
     job_id = kwargs.get('job_id', None)
     if not job_id:
         return Response({'error': 'No job id passed!'}, status=status.HTTP_400_BAD_REQUEST)
@@ -43,6 +45,7 @@ def get_all_interview_questions_for_job(request, **kwargs):
 
 @api_view(['POST'])
 def create_interview_question(request):
+    # Create object from request payload
     data = {
             "job": request.data.get('job'), # primary key
             "body": request.data.get('body'),
@@ -53,28 +56,33 @@ def create_interview_question(request):
             "added_by": request.user.id,
     }
 
+    # Validate data against serializer
     serializer = InterviewQuestionSerializer(data=data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+    # Create object
     serializer.save()
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST'])
 def upvote_interview_question(request):
+    # Create object from request payload
     data = {
         'interview_question': request.data.get('interview_question'), # primary key
         'user': request.user.id
     }
     
+    # Validate data against serializer
     serializer = UpvotedInterviewQuestionSerializer(data=data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     # Upvote/un-Upvote Logic:
     upvoted_interview_question = UpvotedInterviewQuestion.objects.filter(interview_question=data['interview_question'], user=data['user'])
-    if upvoted_interview_question: # If interview question is already upvoted, we will un-upvote it
+    # If interview question is already upvoted, we will un-upvote it
+    if upvoted_interview_question: 
         upvoted_interview_question.delete()
         return Response({'response': 'removed upvote from interview question'}, status=status.HTTP_200_OK)
     else: # Otherwise, we save it
