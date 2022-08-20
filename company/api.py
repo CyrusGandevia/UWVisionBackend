@@ -14,7 +14,7 @@ def get_companies(request):
     # 2) Joins with all jobs 
     # 3) Groups by company name and aggregates number of jobs per company
     # 4) Returns list of {company_name, company_id, job_count} objects
-    companies = Company.objects.values('name', 'id').annotate(job_count=Count('job__name')).order_by('name')
+    companies = Company.objects.values('name', 'id').annotate(job_count=Count('job__name')).order_by('-job_count')
     return Response(data=list(companies), status=status.HTTP_200_OK)
 
 @api_view(['GET'])
