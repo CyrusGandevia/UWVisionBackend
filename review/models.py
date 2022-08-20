@@ -32,7 +32,7 @@ RATING_CHOICES = [
     (5,5)
 ]
 
-# Create your models here.
+# Some fields currently are marked as optional (when blank and null are True) because these features are still pending implementation on frontend
 class Review(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     body = models.TextField(blank=True, null=True)
