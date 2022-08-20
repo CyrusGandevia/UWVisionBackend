@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Company
 
-# Register your models here.
 class CompanyAdmin(admin.ModelAdmin):
     search_fields = ['name', 'description', 'industry']
     list_display = ['id', 'name', 'description', 'industry', 'created_at', 'added_by']
