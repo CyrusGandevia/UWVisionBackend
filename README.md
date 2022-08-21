@@ -41,7 +41,7 @@ Initially, UWVision's backend service was an Express.js service, using MongoDB A
 - Activate virtual environment: `source django_env/bin/activate`
 - Install requirements `python -m pip install -r requirements.txt`
   - NOTE: You may get `Building wheel for backports.zoneinfo (PEP 517) ... error` - that's okay for now
-- Ensure that your Potgres App server is on
+- Ensure that your Postgres App server is on
 - Run `python manage.py migrate` to get your database initialized
 - Create a superuser for yourself: `python manage.py createsuperuser`
 - Run `python manage.py runserver` to get started with the server
