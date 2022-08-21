@@ -30,6 +30,7 @@ if ENV == 'production':
     ALLOWED_HOSTS = [
         'uwvision-backend.com',
         'www.uwvision-backend.com',
+        'UWVision-test.us-east-1.elasticbeanstalk.com',
     ]
     CORS_ORIGIN_WHITELIST = [
         'https://www.uwvision.com',
