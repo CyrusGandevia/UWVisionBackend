@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from tkinter import ALL
+import requests
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +40,24 @@ if ENV == 'production':
     ]
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
+
+    # Fix to AWS EB Healthcheck's 400 errors by dynamically adding EC2 IP to allowed hosts
+    try:
+        IMDS_V2_TOKEN = requests.put(
+            'http://169.254.169.254/latest/api/token', 
+            headers={'X-aws-ec2-metadata-token-ttl-seconds': '3600'}
+        ).text
+        EC2_INSTANCE_IP = requests.get(
+            'http://169.254.169.254/latest/meta-data/local-ipv4', 
+            timeout=0.01,
+            headers={'X-aws-ec2-metadata-token': IMDS_V2_TOKEN}
+        ).text
+    except requests.exceptions.RequestException:
+        EC2_INSTANCE_IP = None
+    
+    if EC2_INSTANCE_IP:
+        ALLOWED_HOSTS.append(EC2_INSTANCE_IP)
+
 else:
     SECRET_KEY = 'django-insecure-v_-6gliqst5ir*y@rgzb1(brqs-5yly@n1q@owi7e*u0cq%vjp'
     DEBUG = True 
