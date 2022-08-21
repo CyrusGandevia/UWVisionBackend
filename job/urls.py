@@ -1,5 +1,4 @@
 from django.urls import path
-
 from .api import get_all_jobs_for_company, get_all_saved_jobs, create_job, get_job, save_job
 
 urlpatterns = [

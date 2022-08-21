@@ -2,20 +2,23 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Company, Job, SavedJob
 from django.db.models import Count, Avg, F, Sum, Func
 from django.core.exceptions import ObjectDoesNotExist
-from collections import defaultdict
+
+from .models import Company, Job, SavedJob
 from .serializers import JobSerializer, SavedJobSerializer
 
-# Necessary for rounding to two decimal places for the Avg() functions
+from collections import defaultdict
+
+# Functionality for rounding to two decimal places for the Avg() functions
 class Round(Func):
     function = "ROUND"
     template = "%(function)s(%(expressions)s::numeric, 2)"
 
 @api_view(['GET'])
-@permission_classes([]) # Required to override default requirement of authentication credentials
+@permission_classes([])
 def get_all_jobs_for_company(request, **kwargs):
+    # If company name is not passed
     company_name = kwargs.get('company_name', None)
     if not company_name:
         return Response({'error': 'No company name passed!'}, status=status.HTTP_400_BAD_REQUEST)
@@ -55,16 +58,19 @@ def get_all_jobs_for_company(request, **kwargs):
 
 @api_view(['POST'])
 def create_job(request):
+    # Create object from request payload
     data = {
         'company': request.data.get('company'), # primary key
         'name': request.data.get('name'),
         'added_by': request.user.id
     }
 
+    # Validate data against serializer
     serializer = JobSerializer(data=data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+    # Create object
     serializer.save()
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -72,6 +78,7 @@ def create_job(request):
 @api_view(['GET'])
 @permission_classes([])
 def get_job(request, **kwargs):
+    # If company name or job name is not passed
     company_name = kwargs.get('company_name', None)
     job_name = kwargs.get('job_name', None)
 
@@ -85,6 +92,7 @@ def get_job(request, **kwargs):
     company_name = company_name.replace("-", " ")
     job_name = job_name.replace("-", " ")
 
+    # Get job, if exists
     try:
         company = Company.objects.values().get(name=company_name)
         try:
@@ -98,6 +106,12 @@ def get_job(request, **kwargs):
 @api_view(['GET'])
 def get_all_saved_jobs(request):
     user_id = request.user.id
+
+    # Get all saved jobs that the user has saved, each populated with the following metrics:
+    # - Average hourly wage for the job
+    # - Number of salaries posted for the job
+    # - Average rating for the job
+    # - Number of reviews posted for the job
     saved_jobs = (SavedJob
                   .objects
                   .filter(user_id=user_id)
@@ -107,6 +121,7 @@ def get_all_saved_jobs(request):
                   .annotate(avg_overall_rating=Round(Avg('job__review__overall_rating')), 
                             review_count=Count('job__review__id', distinct=True)))
     
+    # Group the jobs by their respective company
     saved_jobs_grouped_by_company = defaultdict(list)
     for job in saved_jobs:
         saved_jobs_grouped_by_company[job['company']].append(job)
@@ -115,18 +130,21 @@ def get_all_saved_jobs(request):
 
 @api_view(['POST'])
 def save_job(request): # Also unsaves the review if already exists
+    # Create object from request payload
     data = {
         'job': request.data.get('job'), # primary key
         'user': request.user.id
     }
 
+    # Validate data against serializer
     serializer = SavedJobSerializer(data=data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     # Save/Unsave Logic:
     saved_job = SavedJob.objects.filter(job=data['job'], user=data['user'])
-    if saved_job: # If job already exists, we unsave it
+    # If job already exists, we unsave it
+    if saved_job:
         saved_job.delete()
         return Response({'response': 'unsaved job'}, status=status.HTTP_200_OK)
     else: # Otherwise, we save it
