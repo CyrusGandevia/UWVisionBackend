@@ -41,18 +41,23 @@ if ENV == 'production':
     SESSION_COOKIE_SECURE = True
 
     # Fix to AWS EB Healthcheck's 400 errors by dynamically adding EC2 IP to allowed hosts
-    try:
-        IMDS_V2_TOKEN = requests.put(
-            'http://169.254.169.254/latest/api/token', 
-            headers={'X-aws-ec2-metadata-token-ttl-seconds': '3600'}
-        ).text
-        EC2_INSTANCE_IP = requests.get(
-            'http://169.254.169.254/latest/meta-data/local-ipv4', 
-            timeout=0.01,
-            headers={'X-aws-ec2-metadata-token': IMDS_V2_TOKEN}
-        ).text
-    except requests.exceptions.RequestException:
-        EC2_INSTANCE_IP = None
+    EC2_INSTANCE_IP = None
+    for i in range(10): # Allow 10 retries
+        try:
+            IMDS_V2_TOKEN = requests.put(
+                'http://169.254.169.254/latest/api/token', 
+                timeout=0.01,
+                headers={'X-aws-ec2-metadata-token-ttl-seconds': '3600'}
+            ).text
+            EC2_INSTANCE_IP = requests.get(
+                'http://169.254.169.254/latest/meta-data/local-ipv4', 
+                timeout=0.01,
+                headers={'X-aws-ec2-metadata-token': IMDS_V2_TOKEN}
+            ).text
+        except requests.exceptions.ConnectionError:
+            pass
+        else:
+            break
     
     if EC2_INSTANCE_IP:
         ALLOWED_HOSTS.append(EC2_INSTANCE_IP)
