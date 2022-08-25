@@ -1,4 +1,4 @@
-#!/Users/cyrusgandevia/Desktop/UWVisionBackend/django_env/bin/python3
+#!/Users/cyrusgandevia/Documents/Cyrus/Coding/UWVisionBackend/django_env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

@@ -1,20 +1,23 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Review, UpvotedReview
+
 from django.db.models import Avg, Count, Func
-from .serializers import ReviewSerializer, UpvotedReviewSerializer
 from django.core.exceptions import ObjectDoesNotExist
 
-# Necessary for rounding to two decimal places for the Avg() functions
+from .models import Review, UpvotedReview
+from .serializers import ReviewSerializer, UpvotedReviewSerializer
+
+# Functionality for rounding to two decimal places for the Avg() functions
 class Round(Func):
     function = "ROUND"
     template = "%(function)s(%(expressions)s::numeric, 2)"
 
 
 @api_view(['GET'])
-@permission_classes([]) # Required to override default requirement of authentication credentials
+@permission_classes([]) 
 def get_all_reviews_for_job(request, **kwargs): # Works very similar to 'get_all_interview_questions_for_job'
+    # If job name is not passed
     job_id = kwargs.get('job_id', None)
     if not job_id:
         return Response({'error': 'No job id passed!'}, status=status.HTTP_400_BAD_REQUEST)
@@ -51,6 +54,7 @@ def get_all_reviews_for_job(request, **kwargs): # Works very similar to 'get_all
 
 @api_view(['POST'])
 def create_review(request):
+    # Create object from request payload
     data = {
             "job": request.data.get('job'),
             "body": request.data.get('body'),
@@ -65,21 +69,25 @@ def create_review(request):
             "added_by": request.user.id,
     }
 
+    # Validate data against serializer
     serializer = ReviewSerializer(data=data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+    # Create object
     serializer.save()
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST'])
 def upvote_review(request):
+    # Create object from request payload
     data = {
         'review': request.data.get('review'), # primary key
         'user': request.user.id
     }
 
+    # Validate data against serializer
     serializer = UpvotedReviewSerializer(data=data)
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -1,10 +1,13 @@
-from os import stat
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth import authenticate
-from .models import User
 from rest_framework.authtoken.models import Token
+
+from django.contrib.auth import authenticate
+
+from .models import User
+
+# NOTE: User signup/login APIs are still undergoing migration from old service
 
 # Create User (sign up)
 @api_view(['POST'])
@@ -20,11 +23,6 @@ def create_user(request):
     # TODO: Future - add serialization and error handling
     return Response({'response': 'user created!'}, status=status.HTTP_201_CREATED)
 
-# {
-# "username": "cyrus-alt",
-# "email": "cyrus.gandevia@gmail.com",
-# "password": "cyrus12345"
-# }
 
 # Log In -> returns credentials + token
 @api_view(['POST'])
@@ -48,12 +46,6 @@ def get_user(request):
     
     return Response(data=credentials, status=status.HTTP_200_OK)
 
-# {
-# "username": "cyrus-alt",
-# "password": "cyrus12345"
-# }
+# TODO: Email confirmation
 
-# Email confirmation
-
-# Nice-to-have: password reset
-
+# TODO: Password reset

@@ -14,7 +14,6 @@ TERM_CHOICES = [
     ('Spring', 'Spring'),
     ('Winter', 'Winter')
 ]
-
 COOP_NUMBER_CHOICES = [
     (1, 1),
     (2, 2),
@@ -24,7 +23,7 @@ COOP_NUMBER_CHOICES = [
     (6, 6),
 ]
 
-# Create your models here.
+# Some fields currently are marked as optional (when blank and null are True) because these features are still pending implementation on frontend
 class InterviewQuestion(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     body = models.TextField()

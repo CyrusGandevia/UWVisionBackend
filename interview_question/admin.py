@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import InterviewQuestion, UpvotedInterviewQuestion
 
-# Register your models here.
 class InterviewQuestionAdmin(admin.ModelAdmin):
     search_fields = ['job', 'body', 'program']
     list_display = [

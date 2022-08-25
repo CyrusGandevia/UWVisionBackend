@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Review, UpvotedReview
 
-# Register your models here.
 class ReviewAdmin(admin.ModelAdmin):
     search_fields = ['job', 'body', 'program']
     list_display = [

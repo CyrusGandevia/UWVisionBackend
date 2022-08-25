@@ -1,8 +1,6 @@
 from django.contrib import admin
-
 from .models import Job, SavedJob
 
-# Register your models here.
 class JobAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display = ['id', 'company', 'name', 'created_at', 'added_by']

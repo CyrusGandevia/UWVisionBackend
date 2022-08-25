@@ -1,6 +1,7 @@
 from django.db import models
 from user.models import User
 
+# Some fields currently are marked as optional (when blank and null are True) because these features are still pending implementation on frontend
 class Company(models.Model):
     class Meta:
         verbose_name_plural = 'Companies'

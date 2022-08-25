@@ -12,20 +12,95 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import requests
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-v_-6gliqst5ir*y@rgzb1(brqs-5yly@n1q@owi7e*u0cq%vjp'
+ENV = os.environ.get(
+    'ENV',
+    'test'
+)
 
+if ENV == 'production':
+    SECRET_KEY = os.environ['SECRET_KEY']
+    DEBUG = False
+    ALLOWED_HOSTS = [
+        'uwvision-backend.com',
+        'www.uwvision-backend.com',
+        'UWVision-test.us-east-1.elasticbeanstalk.com',
+    ]
+    CORS_ORIGIN_WHITELIST = [
+        'https://www.uwvision.com',
+        'https://uwvision.com',
+    ]
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+
+    # Fix to AWS EB Healthcheck's 400 errors by dynamically adding EC2 IP to allowed hosts
+    EC2_INSTANCE_IP = None
+    for i in range(10): # Allow 10 retries
+        try:
+            IMDS_V2_TOKEN = requests.put(
+                'http://169.254.169.254/latest/api/token', 
+                timeout=0.01,
+                headers={'X-aws-ec2-metadata-token-ttl-seconds': '3600'}
+            ).text
+            EC2_INSTANCE_IP = requests.get(
+                'http://169.254.169.254/latest/meta-data/local-ipv4', 
+                timeout=0.01,
+                headers={'X-aws-ec2-metadata-token': IMDS_V2_TOKEN}
+            ).text
+        except requests.exceptions.ConnectionError:
+            pass
+        else:
+            break
+    
+    if EC2_INSTANCE_IP:
+        ALLOWED_HOSTS.append(EC2_INSTANCE_IP)
+
+else:
+    SECRET_KEY = 'django-insecure-v_-6gliqst5ir*y@rgzb1(brqs-5yly@n1q@owi7e*u0cq%vjp'
+    DEBUG = True 
+    ALLOWED_HOSTS = [
+        "127.0.0.1",
+    ]
+    CORS_ORIGIN_WHITELIST = (
+        'http://localhost:3000',
+    )
+
+# Database
+# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+
+# Production Database
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
+    }
+# Local Database
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': '',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -65,18 +140,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "UWVision-test.us-east-1.elasticbeanstalk.com",
-    "uwvision-backend.com",
-    "www.uwvision-backend.com",
-]
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
-    'https://www.uwvision.com',
-    'https://uwvision.com',
-)
-
 ROOT_URLCONF = 'UWVision.urls'
 
 TEMPLATES = [
@@ -96,39 +159,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'UWVision.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-
-if 'RDS_DB_NAME' in os.environ:
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = False
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
-    }
-else:
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'postgres',
-            'USER': 'postgres',
-            'PASSWORD': '',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
