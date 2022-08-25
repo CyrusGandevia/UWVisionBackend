@@ -5,3 +5,6 @@
 !.elasticbeanstalk/*.global.yml
 privatekey.txt
 public_certificate.txt
+.python-version
+*/__pycache__
+*/*/__pycache__

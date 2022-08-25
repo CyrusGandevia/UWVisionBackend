@@ -15,7 +15,8 @@ def get_companies(request):
     # 2) Joins with all jobs 
     # 3) Groups by company name and aggregates number of jobs per company
     # 4) Returns list of {company_name, company_id, job_count} objects, ordered in descneding order of number of jobs
-    companies = Company.objects.values('name', 'id').annotate(job_count=Count('job__name')).order_by('-job_count')
+    # Tentative changes; also returns the company's logo
+    companies = Company.objects.values('name', 'id', 'logo').annotate(job_count=Count('job__name')).order_by('-job_count')
     return Response(data=list(companies), status=status.HTTP_200_OK)
 
 @api_view(['GET'])
@@ -42,6 +43,7 @@ def create_company(request):
         'name': request.data.get('name'),
         'description': request.data.get('description'),
         'industry': request.data.get('industry'),
+        'logo': request.data.get('logo'),
         'added_by': request.user.id
     }
 
