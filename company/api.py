@@ -36,6 +36,14 @@ def get_company(request, **kwargs):
     except ObjectDoesNotExist:
         return Response({'error': 'Company with name=' + company_name + ' does not exist.'}, status=status.HTTP_404_NOT_FOUND)
 
+# returns all company logos
+@api_view(['GET'])
+@permission_classes([])
+def get_logos(request):
+    logos = Company.objects.values('logos')
+    return logos
+    
+
 @api_view(['POST'])
 def create_company(request):
     # Create object from request payload
