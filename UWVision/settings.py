@@ -36,6 +36,7 @@ if ENV == 'production':
     CORS_ORIGIN_WHITELIST = [
         'https://www.uwvision.com',
         'https://uwvision.com',
+        'https://uwvision.herokuapp.com',
     ]
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
