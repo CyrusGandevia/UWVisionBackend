@@ -34,8 +34,8 @@ if ENV == 'production':
         'UWVision-test.us-east-1.elasticbeanstalk.com',
     ]
     CORS_ORIGIN_WHITELIST = [
-        'https://www.uwvision.com',
-        'https://uwvision.com',
+        'https://www.uwvision.ca',
+        'https://uwvision.ca',
         'https://uwvision.herokuapp.com',
     ]
     CSRF_COOKIE_SECURE = True
