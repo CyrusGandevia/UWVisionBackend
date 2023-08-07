@@ -7,7 +7,7 @@ blessed==1.19.1
 botocore==1.23.54
 cached-property==1.5.2
 cement==2.8.2
-certifi==2022.6.15
+certifi==2023.7.22
 cffi==1.15.1
 charset-normalizer==2.0.12
 colorama==0.4.3
